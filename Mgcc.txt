@@ -1,0 +1,3 @@
+#!/bin/bash
+mpicc -o $1 $1.c -lm -L/usr/lib -lGLU  -lGL -lglut  -L/usr/X11R6/lib -lX11 -lXext -lXi -lXmu
+# gcc -o $1 $1.c -lm -L/usr/lib -lGLU  -lGL -lglut  -L/usr/X11R6/lib -lX11 -lXext -lXi -lXmu

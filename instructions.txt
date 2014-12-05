@@ -1,0 +1,6 @@
+1. Copy jlowest/jrandom but change the pick function.
+2. Save your file with your username as the filename.
+3. Run interactive python and import your username.
+4. This should have created a "username".pyc file.
+5. Edit "ailist.txt" to include your username.
+6. Run the referee.  For tourney include an argument.

@@ -1,0 +1,102 @@
+#Ed Lee 09-20-11
+#Lab03
+
+from string import lowercase
+from sys import exit
+from time import time
+import random
+wlist = open('words.txt', 'r').read().split()
+nlist = open('nbrs.txt', 'r').read().split('\n')
+beg = raw_input('Start: ')
+end = raw_input('End: ')
+ht = {}
+
+for x in range(0, len(nlist)-1, 2):
+        ht[nlist[x]] = (nlist[x+1])
+  
+def getNeighbors(word, table):
+        return table[word].split()
+    
+def BFS(start, last):
+        myList=[]
+        temp = []
+        paths = []
+        copy = []
+        tic = time()
+        myList.append(start)
+        temp.append(start)
+        paths.append(temp)
+        while len(paths) > 0:
+                temp = paths.pop(0)
+                if(last == temp[-1]):
+                        toc = time()
+                        print temp
+                        print 'Length: ',len(temp)
+                        print 'Time took: ', (toc-tic)
+                        break
+                neighbors = []
+                neighbors = getNeighbors(temp[-1], ht)
+                for nbr in neighbors:
+                        copy = temp[:]
+                if nbr not in myList:
+                        myList.append(nbr)
+                        copy.append(nbr)
+                        paths.append(copy)
+
+def DFS(start, last):
+        myList=[]
+        temp = []
+        paths = []
+        copy = []
+        tic = time()
+        myList.append(start)
+        temp.append(start)
+        paths.append(temp)
+        while len(paths) > 0:
+                temp = paths.pop()
+                if(last == temp[-1]):
+                        toc = time()
+                        print temp
+                        break
+                neighbors = getNeighbors(temp[-1], ht)
+                for nbr in neighbors:
+                        copy = temp[:]
+                if nbr not in myList:
+                        myList.append(nbr)
+                        copy.append(nbr)
+                        paths.append(copy)
+        
+def DFSID(start, last, limit):
+        myList={}
+        temp = []
+        paths = []
+        copy = []
+        tic = time()
+        temp.append(start)
+        paths.append(temp)
+        while len(paths) > 0:
+                temp = paths.pop()
+                if(last == temp[-1]):
+                        toc = time()
+                        print temp
+                        print 'Length: ', len(temp)
+                        print 'Time took: ', (toc-tic)
+                        return True
+                neighbors = getNeighbors(temp[-1], ht)
+                #if len(temp) <= limit:
+                for nbr in neighbors:
+                        copy = temp[:]
+                if (nbr not in myList or len(copy)<= myList[nbr]) and len(temp) <= limit:
+                        myList[nbr] = len(copy)
+                        copy.append(nbr)
+                        paths.append(copy)
+        return False
+  
+##print BFS(beg, end)
+print DFS(beg, end)
+##depth = 1
+##while DFSID(beg, end, depth) == False:
+##      depth = depth+1
+##      dfsid = DFSID(beg, end, depth)
+
+##print dfsid
